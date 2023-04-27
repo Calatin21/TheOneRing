@@ -1,7 +1,6 @@
 ﻿namespace TheOneRing {
     internal class Hobbit {
         public event EventHandler<RingEventArgs> RingEvent;
-        public event EventHandler<RingEventArgs> RingEventTasche;
         public string Name { get; set; }
         public Ring Ringfinger { get; set; }
         public Ring Tasche { get; set; }
