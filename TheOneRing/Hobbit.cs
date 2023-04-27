@@ -1,6 +1,6 @@
 ﻿namespace TheOneRing {
     internal class Hobbit {
-        public event EventHandler<RingEventArgs> RingEventFinger;
+        public event EventHandler<RingEventArgs> RingEvent;
         public event EventHandler<RingEventArgs> RingEventTasche;
         public string Name { get; set; }
         public Ring Ringfinger { get; set; }
@@ -14,37 +14,26 @@
             Seele = 100;
         }
         public void RingBenutzen() {
-            if (RingEventFinger != null) {
+            if (RingEvent != null) {
                 RingEventArgs rea = new RingEventArgs();
                 if (this.Ringfinger == null) {
-                    RingEventFinger(this, rea);
+                    rea.Unsichtbar = true;
+                    rea.Finger = this.Tasche;
+                    rea.Tasche = null;
+                    RingEvent(this, rea);
                 }
                 else {
-                    RingEventTasche(this, rea);
+                    rea.Unsichtbar = false;
+                    rea.Tasche = this.Ringfinger;
+                    rea.Finger = null;
+                    RingEvent(this, rea);
                 }
             }
         }
-        public void RingAblegen() {
-            if (RingEventTasche != null) {
-                this.RingvomFinger(this, new RingEventArgs());
-            }
-        }
-        public void RingamFinger(object o, RingEventArgs e) {
-            RingEventFinger(o, e);
-        }
-        public void RingvomFinger(object o, RingEventArgs e) {
-            RingEventTasche(o, e);
-        }
-        public void AmfingerEvent(object o, RingEventArgs e) {
-            ((Hobbit)o).Unsichtbar = true;
-            //((Hobbit)o).Seele -= 1;
-            ((Hobbit)o).Ringfinger = ((Hobbit)o).Tasche;
-            ((Hobbit)o).Tasche = null;
-        }
-        public void NichtamfingerEvent(object o, RingEventArgs e) {
-            ((Hobbit)o).Tasche = ((Hobbit)o).Ringfinger;
-            ((Hobbit)o).Ringfinger = null;
-            ((Hobbit)o).Unsichtbar = false;
+        public void Event(object o, RingEventArgs e) {
+            ((Hobbit)o).Unsichtbar = e.Unsichtbar;
+            ((Hobbit)o).Ringfinger = e.Finger;
+            ((Hobbit)o).Tasche = e.Tasche;
         }
     }
 }
