@@ -15,7 +15,13 @@
         }
         public void RingBenutzen() {
             if (RingEventFinger != null) {
-                this.RingamFinger(this, new RingEventArgs());
+                RingEventArgs rea = new RingEventArgs();
+                if (this.Ringfinger == null) {
+                    RingEventFinger(this, rea);
+                }
+                else {
+                    RingEventTasche(this, rea);
+                }
             }
         }
         public void RingAblegen() {
@@ -31,7 +37,7 @@
         }
         public void AmfingerEvent(object o, RingEventArgs e) {
             ((Hobbit)o).Unsichtbar = true;
-            ((Hobbit)o).Seele -= 1;
+            //((Hobbit)o).Seele -= 1;
             ((Hobbit)o).Ringfinger = ((Hobbit)o).Tasche;
             ((Hobbit)o).Tasche = null;
         }
