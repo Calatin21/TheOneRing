@@ -1,8 +1,9 @@
 ﻿
 namespace TheOneRing {
     internal class Program {
+        public event EventHandler<RingEventArgs> RingEvent;
         static void Main(string[] args) {
-                    Hobbit bilbo = new Hobbit("Bilbo");
+            Hobbit bilbo = new Hobbit("Bilbo");
             bilbo.RingEvent += bilbo.Event;
             ConsoleKey key;
             do {
